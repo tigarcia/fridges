@@ -13,11 +13,10 @@ import SelectFridge from './SelectFridge';
 import computeSummaryStats from './computeSummaryStats';
 
 const FRIDGE_SERVER_URL = (
-  process.env.FRIDGE_SERVER_URL || 'http://localhost:5000'
+  process.env.NODE_ENV === 'production'
+    ? 'https://rigetti-backend.herokuapp.com'
+    : 'http://localhost:5000'
 );
-
-// eslint-disable-next-line no-console
-console.log('FRIDGE_SERVER_URL', process.env.FRIDGE_SERVER_URL);
 
 function App() : ReactElement {
   const [fridgeData, setFridgeData] = useState([]);
