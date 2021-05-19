@@ -2,66 +2,56 @@ import React, { ReactElement } from 'react';
 import { Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './SelectFridge.css';
-import data from './data';
+import { ProcessedFridgeData } from './computeSummaryStats';
 
-// interface FridgeAverage {
-//   cooldownTotal: number;
-//   cooldownCount: number;
-//   cooldownAvg: number;
-//   warmupAvg: number;
-//   warmupTotal: number;
-//   warmupCount: number;
-//   coldAvg: number;
-//   coldTotal: number;
-//   coldCount: number;
-//   fridgeId: number;
-// }
+interface SelectFridgeProps {
+  data: ProcessedFridgeData
+}
 
-function SelectFridge() : ReactElement {
-  const fridgeIds: Set<number> = new Set();
-  for (let i = 0; i < data.length; i += 1) {
-    fridgeIds.add(data[i].fridgeId);
+function SelectFridge({ data } : SelectFridgeProps) : ReactElement {
+  const fridgeIds = Object.keys(data).map(Number).sort((a, b) => a - b);
+
+  function tableBody() : ReactElement[] {
+    return fridgeIds.map((id) => (
+      <tr key={id}>
+        <td>
+          <Link
+            className="fridge-id-link"
+            to={`/fridge/${id}`}
+          >
+            {id}
+          </Link>
+        </td>
+        <td>{data[id].cooldownAvg}</td>
+        <td>{data[id].coldAvg}</td>
+        <td>{data[id].warmupAvg}</td>
+        <td>{data[id].downtimeAvg}</td>
+      </tr>
+    ));
   }
-  // const fridgeIdArray = Array.from(fridgeIds);
-  // for (let i = 0; i < fridgeIdArray.length; i += 1) {
-
-  // }
-  // const fridgeAverages: FridgeAverage[] = [];
-
-  //   for (let i = 0; i < data.length; i += 1) {
-  //     const index = fridgeAverages.findIndex(avg => avg.fridgeId === data[i].fridgeId);
-  //     if (index >= 0) {
-  //       fridgeAverages[index].
-  //     }
-  //     if (d.fridgeId > 5) {
-  //       d.fridgeId += 1;
-  //     }
-  //   }
-
   return (
-    <div className="container">
-      <Table id="select-fridge-table" striped bordered hover>
+    <div
+      className="container"
+      style={{ paddingTop: '40px', textAlign: 'center' }}
+    >
+      <h1>Fridge Summary</h1>
+      <Table
+        id="select-fridge-table"
+        striped
+        bordered
+        hover
+      >
         <thead>
           <tr>
             <th>Fridge Id</th>
-            <th>Cooldown Avg</th>
-            <th>Cold Avg</th>
-            <th>Warmup Avg</th>
+            <th>Cooldown Avg Hrs</th>
+            <th>Cold Avg Hrs</th>
+            <th>Warmup Avg Hrs</th>
+            <th>Idle Avg Hrs</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td><Link className="fridge-id-link" to="/fridge/1">1</Link></td>
-            <td>55</td>
-            <td>25</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
+          {tableBody()}
         </tbody>
       </Table>
     </div>

@@ -1,19 +1,29 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, {
+  ReactElement,
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import SingleFridgeAllCharts from './SingleFridgeAllCharts';
 import Navigation from './Navigation';
 import SelectFridge from './SelectFridge';
+import computeSummaryStats from './computeSummaryStats';
 
 const FRIDGE_SERVER_URL = (
   process.env.FRIDGE_SERVER_URL || 'http://localhost:5000'
 );
 
 function App() : ReactElement {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [fridgeData, setFridgeData] = useState([]);
   const [error, setError] = useState(false);
+
+  const summaryFridgeData = useMemo(
+    () => computeSummaryStats(fridgeData),
+    [fridgeData],
+  );
 
   useEffect(() => {
     async function getFridgeData() {
@@ -45,10 +55,10 @@ function App() : ReactElement {
     return (
       <Switch>
         <Route exact path="/fridge/:fridgeId">
-          <SingleFridgeAllCharts />
+          <SingleFridgeAllCharts data={summaryFridgeData} />
         </Route>
         <Route exact path="/">
-          <SelectFridge />
+          <SelectFridge data={summaryFridgeData} />
         </Route>
       </Switch>
     );

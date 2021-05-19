@@ -10,26 +10,34 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-export interface CooldownTimeData {
+export interface BarChartTimeData {
   startDate: string;
   timeHrs: number;
 }
 
 export interface SingleFridgeBarChartProps {
-  data: CooldownTimeData[]
+  data: BarChartTimeData[]
+  title: string
   barColor?: string
 }
 
 function SingleFridgeBarChart(
   props : SingleFridgeBarChartProps,
 ) : ReactElement {
-  const { barColor, data } = props;
+  const { barColor, data, title } = props;
   const color = barColor || '#88c7dc';
   return (
-    <div style={{ width: '900px', height: '600px' }}>
+    <div
+      style={{
+        width: '100%',
+        height: '500px',
+        textAlign: 'center',
+        paddingBottom: '80px',
+      }}
+    >
+      <h3>{title}</h3>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
-          width={500}
           height={300}
           data={data}
           margin={{
