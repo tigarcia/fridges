@@ -15,13 +15,13 @@ export interface CooldownTimeData {
   timeHrs: number;
 }
 
-export interface SingleFridgeCooldownTimeProps {
+export interface SingleFridgeBarChartProps {
   data: CooldownTimeData[]
   barColor?: string
 }
 
 function SingleFridgeBarChart(
-  props : SingleFridgeCooldownTimeProps,
+  props : SingleFridgeBarChartProps,
 ) : ReactElement {
   const { barColor, data } = props;
   const color = barColor || '#88c7dc';
