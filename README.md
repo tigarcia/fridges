@@ -21,3 +21,7 @@ npm install
 npm start
 ```
 
+## Deployed Application
+
+The frontend react app is deployed using netlify.  You can see it at [https://cranky-tesla-c23a60.netlify.app/](https://cranky-tesla-c23a60.netlify.app/)
+
