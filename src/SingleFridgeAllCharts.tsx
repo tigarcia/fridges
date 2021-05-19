@@ -7,7 +7,7 @@ import SingleFridgeBarChart, {
 } from './SingleFridgeBarChart';
 import SingleFridgePieChart from './SingleFridgePieChart';
 
-function SingleFridgeSummary() : ReactElement {
+function SingleFridgeAllCharts() : ReactElement {
   const params = useParams<{fridgeId: string}>();
   const fridgeId = +params.fridgeId;
 
@@ -79,4 +79,4 @@ function SingleFridgeSummary() : ReactElement {
   );
 }
 
-export default SingleFridgeSummary;
+export default SingleFridgeAllCharts;
