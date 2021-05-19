@@ -21,6 +21,14 @@ export interface SingleFridgeBarChartProps {
   barColor?: string
 }
 
+/**
+ * A generic bar chart component that can be used for different data
+ * from the processed data object.
+ *
+ * @param props Described by SingleFridgeBarChartProps. Contains the
+ * barColor, the processed data and a title for the chart.
+ * @returns
+ */
 function SingleFridgeBarChart(
   props : SingleFridgeBarChartProps,
 ) : ReactElement {

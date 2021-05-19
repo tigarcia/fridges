@@ -37,6 +37,13 @@ const renderCustomizedLabel = ({
   );
 };
 
+/**
+ * A generic pie chart that can be used to display the processed
+ * data.
+ *
+ * @param props the processed data and title for the pie chart
+ * @returns A rendered pie chart
+ */
 function SingleFridgePieChart(
   { data, title }: SingleFridgePieChartProps,
 ) : ReactElement {

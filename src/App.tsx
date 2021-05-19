@@ -4,7 +4,9 @@ import React, {
   useState,
   useMemo,
 } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter, Switch, Route, Redirect,
+} from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import SingleFridgeAllCharts from './SingleFridgeAllCharts';
@@ -18,6 +20,19 @@ const FRIDGE_SERVER_URL = (
     : 'http://localhost:5000'
 );
 
+/**
+ * The main entry point to the application
+ *
+ * The component makes the request for the data
+ * from the backend and saves that data to state.
+ *
+ * There is a memoized function call that computes
+ * statistics on that data.
+ *
+ * The component renders the fridge selection component
+ * if the user is on the '/' route or the fridge details
+ * if the user is on the '/fridges/id' route
+ */
 function App() : ReactElement {
   const [fridgeData, setFridgeData] = useState([]);
   const [error, setError] = useState(false);
@@ -62,6 +77,7 @@ function App() : ReactElement {
         <Route exact path="/">
           <SelectFridge data={summaryFridgeData} />
         </Route>
+        <Redirect to="/" />
       </Switch>
     );
   }

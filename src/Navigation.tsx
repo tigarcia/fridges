@@ -4,6 +4,11 @@ import {
 } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
+/**
+ * A simple navbar with a home link
+ *
+ * @returns The rendered navbar
+ */
 function Navigation() : ReactElement {
   return (
     <Navbar bg="light" expand="lg">

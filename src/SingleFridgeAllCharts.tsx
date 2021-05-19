@@ -8,6 +8,12 @@ interface SingleFridgeAllChartsProps {
   data: ProcessedFridgeData
 }
 
+/**
+ * Shows all of the detailed information for a single fridge.
+ *
+ * @param props Contains the processed data from the server
+ * @returns Renders bar charts and a pie chart for the fridge data.
+ */
 function SingleFridgeAllCharts(
   { data }: SingleFridgeAllChartsProps,
 ) : ReactElement {

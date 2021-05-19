@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { DateTime } from 'luxon';
-import SingleFridgeAllCharts from './SingleFridgeAllCharts';
 import { BarChartTimeData } from './SingleFridgeBarChart';
 import { FridgePieChartItem } from './SingleFridgePieChart';
 
@@ -41,6 +40,16 @@ export interface ProcessedFridgeData {
   [key: number]: SingleFridgeData
 }
 
+/**
+ * This function computes all of the summary data for a single
+ * fridge.
+ *
+ * @param fridgeId The id of the fridge to compute summary data for
+ * @param data The array of FridgeDataDateTime instances.  This is all
+ * the data from the server that has had the dates converted to luxon
+ * DateTime objects.
+ * @returns A SingleFridgeData object that gives summary statistics
+ */
 function computeDataForSingleFridge(
   fridgeId: number,
   data: FridgeDataDateTime[],
@@ -133,10 +142,24 @@ function computeDataForSingleFridge(
   };
 }
 
+/**
+ * Takes in the raw array of data from the server and computes
+ * warmup times, cooldown times, cold times and idle times.
+ *
+ * @param rawData An array of RawFridgeData instances
+ * that come from the server
+ * @returns The processed fridge data which is in a form
+ * that is easily used by the recharts components.  See
+ * the ProcessedFridgeData interface for the shape of the
+ * data.
+ */
 export default function computeSummaryStats(
   rawData: RawFridgeData[],
 ) : ProcessedFridgeData {
   if (rawData.length === 0) { return []; }
+
+  // Convert time strings into luxon DateTime objects for easy
+  // processing.
   const data: FridgeDataDateTime[] = rawData.map((item) => ({
     ...item,
     cooldownStart: DateTime.fromSQL(item.cooldownStart),

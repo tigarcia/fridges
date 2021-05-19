@@ -8,6 +8,15 @@ interface SelectFridgeProps {
   data: ProcessedFridgeData
 }
 
+/**
+ * A component to display all fridges and basic summary
+ * information about them in a table.
+ *
+ * @param props A single prop of data which is the processed summary data
+ * from computeSummaryStats
+ * @returns Renders a table of all of the fridge averages as well as a link
+ * to more details about a single fridge.
+ */
 function SelectFridge({ data } : SelectFridgeProps) : ReactElement {
   const fridgeIds = Object.keys(data).map(Number).sort((a, b) => a - b);
 
